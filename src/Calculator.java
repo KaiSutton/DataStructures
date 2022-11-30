@@ -179,7 +179,7 @@ public class Calculator extends GraphicsProgram {
                     s.append(ch);
                     i++;
 
-                    while (input.charAt(i) <= '9' && input.charAt(i) >= '0' && i < strlen){
+                    while (i < strlen && input.charAt(i) <= '9' && input.charAt(i) >= '0'){
                         s.append(input.charAt(i));
                         i++;
                     }
@@ -195,21 +195,22 @@ public class Calculator extends GraphicsProgram {
 
                 } else if (ch == ')'){
 
-                    while (input.charAt(i) != '('){
+                    
 
-
-                        // calculate()
-
-                        i++;
-                    }
+                    ns.push(calculate(op.pop(), ns.pop(), ns.pop()));
+                    op.pop();
 
                 } else {
 
-                    
+                    if (ch == '*' || ch == '/'){
+                        ns.push(calculate(ch, ns.pop(), ns.pop()));
+                    }else {
+                        op.push(ch);
+                    }
 
                 }
 
-
+                i++;
 
             } // end of outer loop and primary evaluation
 
@@ -217,6 +218,12 @@ public class Calculator extends GraphicsProgram {
             // these must be evaluated until the stacks are empty.
 
             // basically, if there are still operators on the op stack, keep calculating.
+            while (!op.isEmpty()){
+
+                ns.push(calculate(op.pop(), ns.pop(), ns.pop()));
+
+            }
+
 
             // return whatever is left on the number stack.
             return ns.pop();

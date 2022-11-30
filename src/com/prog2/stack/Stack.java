@@ -21,7 +21,7 @@ public class Stack<T> {
 
    }
 
-   private boolean isEmpty(){
+   public boolean isEmpty(){
        return top < 0;
    }
 
@@ -49,7 +49,7 @@ public class Stack<T> {
        return arr[top--];
    }
 
-   private T peek(){
+   public T peek(){
 
        if (isEmpty()){
            System.out.println("bad");
